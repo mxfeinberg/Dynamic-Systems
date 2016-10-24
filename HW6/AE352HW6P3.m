@@ -1,7 +1,9 @@
 %%  AE 352 HW 6 
 %   Problem 3
+%   Author: Max Feinberg
+%   Simulates the motion of a ball rolling in a hemisphere
 function main
-clear all; close all; clc;
+clear all; close all; clear figure; clc;
 
 t0 = 0;         % initial time
 tf = 100;        % final time
@@ -10,28 +12,64 @@ y0 = [0; 0; -1*pi/2; 0; ];   % initial conditions
 [t,y] = ode45(@diff1,[t0 tf],y0);
 
 figure(1)
-plot(t,y(:,1));
+plot(t(1:550),y(1:550,1));
 xlabel('time (s)');
 ylabel('x-position (units)');
+title('x vs. time');
+xlim([0,25]);
 grid on
-
-figure(1)
-plot(t,y(:,1));
-xlabel('time (s)');
-ylabel('x-position (units)');
-grid on
+print -depsc xShort
 
 figure(2)
+plot(t,y(:,1));
+xlabel('time (s)');
+ylabel('x-position (units)');
+title('x vs. time');
+grid on
+
+print -depsc xLong
+
+
+figure(3)
+plot(t(1:550),y(1:550,3));
+xlabel('time (s)');
+ylabel('\theta (radians)');
+title('\theta vs time');
+xlim([0, 25]);
+grid on
+
+print -depsc thetaShort
+
+figure(4)
 plot(t,y(:,3));
 xlabel('time (s)');
 ylabel('\theta (radians)');
+title('\theta vs time');
 grid on
+
+print -depsc thetaLong
 
 y0_EC = [0; 0; -1*pi/2; 0; pi/2; 0];
 [u,z] = ode45(@diff2,[t0 5],y0_EC);
-figure(3)
-plot(u,z(:,3), 'r-', u,z(:,5), 'b-');
+
+
+figure(5)
+plot(u,z(:,1), 'k-');
+xlabel('time (s)');
+ylabel('x (units)');
+title('x vs time');
 grid on
+print -depsc xEC 
+
+figure(6)
+plot(u,z(:,3), 'r-', u,z(:,5), 'b-');
+xlabel('time (s)');
+ylabel('\theta (radians)');
+title('\theta vs time');
+legend('\theta_1', '\theta_2');
+grid on
+
+print -depsc thetaEC
 end
 
 function state = diff1(t,y)
