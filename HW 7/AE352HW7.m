@@ -26,7 +26,7 @@ grid on
 print -depsc P1Theta
 
 theta0 = [pi/3; 0;];
-[u,v] = ode45(@diff2,[0 15],theta0); % simulate stick falling
+[u,v] = ode45(@diff2,[0 25],theta0); % simulate stick falling
 
 figure(2)
 plot(u,v(:,1));
@@ -34,7 +34,7 @@ xlabel('time (s)');
 ylabel('\theta (radians)');
 title('\theta vs. time');
 grid on
-print -depsc P2Theta
+print -depsc P2ThetaShort
 
 end
 
@@ -47,8 +47,8 @@ state = [y(2); -1*2*g/(3*R)*sin(y(1)); y(4); -2*g/(3*r)*sin(y(1))];
 end
 
 function state = diff2(u,v)
-l = 2;
+L = 2;
 g = 9.8;
 
-state = [v(2); (6*g*l*sin(v(1))-3*v(2)^2*sin(v(1))*cos(v(1)))/ (1 + 3 * sin(v(1))^2)]; 
+state = [v(2); (6*(g/L)*sin(v(1))-3*v(2)^2*sin(v(1))*cos(v(1))) / (1 + 3 * (sin(v(1))^2))]; 
 end
