@@ -78,9 +78,9 @@ m = 10;   % kg
 M = 100;  % kg
 R = 1;    % units
 % ===================
-ddot_X = (R*y(4)^2*m*sin(y(3))+m*g*sin(y(3))*cos(y(3))) ...
+ddot_X = (R*y(4)^2*m*sin(y(3))-m*g*sin(y(3))*cos(y(3))) ...
           /(M+m-m*cos(y(3))^2*R);
-state = [y(2); ddot_X; y(4); (-1 * ddot_X*cos(y(3))-g*sin(y(3)))/R]; 
+state = [y(2); ddot_X; y(4); (-1 * ddot_X*cos(y(3))+g*sin(y(3)))/R]; 
 end
 
 function state = diff2(u,y)
